@@ -1,0 +1,64 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Notificações</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-row>
+    <ion-col size="9" class="ion-padding">
+      <ion-card>
+        <ion-list *ngFor="let n of notifications">
+          <ion-item>
+            <ion-label>
+              <ion-text>
+                <ion-badge>{{n.type}}</ion-badge>
+                <h3>{{n.title}}</h3>
+              </ion-text>
+              <ion-text>
+                <p>{{n.description}}</p>
+              </ion-text>
+            </ion-label>
+            <ion-button slot="end" (click)="remove(n.key)">
+             Deletar
+            </ion-button>
+          </ion-item>
+        </ion-list>
+      </ion-card>
+    </ion-col>
+    <ion-col size="3">
+      <ion-list lines="none">
+        <ion-item>
+          <ion-label position="stacked">Título</ion-label>
+          <ion-input type="text" [(ngModel)]="notification.title"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Descrição</ion-label>
+          <ion-textarea type="text" [(ngModel)]="notification.description"></ion-textarea>
+        </ion-item>
+
+        <ion-radio-group [(ngModel)]="notification.type">
+          <ion-item>
+            <ion-label>Técnicos</ion-label>
+            <ion-radio slot="start" value="riders"></ion-radio>
+          </ion-item>
+          <ion-item>
+            <ion-label>Clientes</ion-label>
+            <ion-radio slot="start" value="drivers"></ion-radio>
+          </ion-item>
+          <ion-item>
+            <ion-label>Ambos</ion-label>
+            <ion-radio slot="start" value="both"></ion-radio>
+          </ion-item>
+        </ion-radio-group>
+
+        <div class="ion-padding">
+          <ion-button size="block" (click)="add()">Adicionar Mensagem</ion-button>
+        </div>
+      </ion-list>
+    </ion-col>
+  </ion-row>
+</ion-content>

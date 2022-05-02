@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Clientes</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-card class="ion-padding">
+    <table>
+      <thead>
+        <th>Cliente desde</th>
+        <th>Nome</th>
+        <th>Email</th>
+        <th>Telefone</th>
+        <th>Ações</th>
+      </thead>
+      <tbody>
+        <tr *ngFor="let rider of passengers">
+          <td>
+            <p class="datetime">{{rider.createdAt | date: 'MMM dd, yyyy'}}</p>
+          </td>
+          <td>
+            <p>{{rider.name}}</p>
+          </td>
+          <td>
+            <p>{{rider.email}}</p>
+          </td>
+          <td>
+            <p><a target="_blank" href="tel:{{rider.phoneNumber}}" *ngIf="rider.phoneNumber">{{rider.phoneNumber}}</a>
+            </p>
+          </td>
+          <td>
+            <ion-button fill="clear" size="small" routerLink="/passengerinfo/{{rider.key}}">
+              <ion-icon name="eye"></ion-icon>
+            </ion-button>
+            <ion-button fill="clear" color="danger" size="small" (click)="delete(rider.key)">
+              <ion-icon name="trash"></ion-icon>
+            </ion-button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </ion-card>
+</ion-content>

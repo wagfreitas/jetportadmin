@@ -1,0 +1,62 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Técnicos - {{drivers.length}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-card class="ion-padding">
+    <table>
+      <thead>
+        <tr>
+          <th>Iniciou em</th>
+          <th>Detalhes</th>
+          <th>Veículo</th>
+          <th>Tipo</th>
+          <th>Status</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let driver of drivers">
+          <td>
+            <p>{{driver.createdAt | date:'MMM dd yyyy' }}</p>
+          </td>
+          <td>
+            <p class="bold">{{driver.name}}</p>
+            <p>{{driver.email}}</p>
+            <p><a target="_blank" href="tel:{{driver.phoneNumber}}"
+                *ngIf="driver.phoneNumber">{{driver.phoneNumber}}</a>
+            </p>
+          </td>
+          <td>
+            <p>{{driver.brand}} {{driver.model}}</p>
+            <p>{{driver.plate}}</p>
+          </td>
+          <td>
+            <p>{{driver.type}}</p>
+          </td>
+          <td>
+            <ion-button *ngIf="!driver.isApproved" fill="outline" color="primary" size="small"
+              (click)="changeStatus(driver.key, driver.isApproved)">
+              Habilitar</ion-button>
+            <ion-button *ngIf="driver.isApproved" fill="outline" color="primary" size="small"
+              (click)="changeStatus(driver.key, driver.isApproved)">
+              Desabilitar</ion-button>
+          </td>
+          <td>
+            <ion-button fill="clear" size="small" routerLink="/driverinfo/{{driver.key}}">
+              <ion-icon name="eye"></ion-icon>
+            </ion-button>
+            <ion-button fill="clear" color="danger" size="small" (click)="delete(driver.key)">
+              <ion-icon name="trash"></ion-icon>
+            </ion-button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </ion-card>
+</ion-content>

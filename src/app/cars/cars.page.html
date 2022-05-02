@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>cars</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-card class="ion-padding">
+    <div style="float: right;padding: 12px;">
+      <ion-button size="small" routerLink="/addcar">Add New Car</ion-button>
+    </div>
+    <table>
+      <thead>
+        <th>Name</th>
+        <th>Pricing</th>
+        <th>Tax</th>
+        <th>Commission</th>
+        <th>More</th>
+      </thead>
+      <tbody>
+        <tr *ngFor="let car of cars;let i = index">
+          <td>
+            <p class="car-name">{{cars[i].name}} <br /><span class="seats">{{(cars[i])?.seats}} seats</span></p>
+          </td>
+          <td>
+            <p>{{currency}} {{ (cars[i])?.base_fare }} / km for first {{ (cars[i])?.base_km }} km</p>
+            <p>{{currency}} {{ (cars[i])?.per_km }} / km after {{ (cars[i])?.base_km }} km</p>
+          </td>
+          <td>
+            {{ cars[i].tax }} %
+          </td>
+          <td>
+            <p *ngIf="cars[i].commission_type == 'fixed'">{{currency}} {{ cars[i].commission_value }}</p>
+            <p *ngIf="cars[i].commission_type == 'percentage'">{{ cars[i].commission_value }} %</p>
+          </td>
+          <td>
+            <ion-button fill="clear" size="small" routerLink="/editcar/{{cars[i].key}}">Edit</ion-button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    
+  </ion-card>
+
+</ion-content>

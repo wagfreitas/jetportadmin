@@ -1,0 +1,62 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Atendimentos - {{trips.length}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div>
+    De: <input type="date" max={{today}} [(ngModel)]="startDate" />
+    Até: <input type="date" min={{startDate}} max={{today}} [(ngModel)]="endDate" />
+    <ion-button fill="outline" size="small" (click)="filter()">Filtrar</ion-button>
+  </div>
+  <br>
+  <ion-card class="ion-padding">
+    <p *ngIf="trips.length == 0">Nenhum atendimento encontrado entre  {{startDate}} - {{endDate}}</p>
+    <p *ngIf="trips.length != 0"><b>{{trips.length}} Trips</b> encontrados entre <b>{{startDate}} - {{endDate}}</b></p>
+    <br />
+    <table *ngIf="trips.length != 0">
+      <thead>
+        <th>Local</th>
+        <th>Status</th>
+        <th>Ações</th>
+      </thead>
+      <tbody *ngFor="let trip of trips">
+        <tr>
+          <td style="width: 50%;">
+            <p><span class="trip-id">#{{ trip.createdAt }}</span> {{ trip.createdAt | date: 'MMM dd, yyyy hh:mm a'}}</p>
+            <p class="trip-place">
+              <ion-icon name="pin" color="danger"></ion-icon> {{ trip.origin.vicinity }} -
+              <span class="trip-time">{{ trip.pickedUpAt | date: 'shortTime'}}</span>
+            </p>
+            <p class="trip-place">
+              <ion-icon name="pin" color="success"></ion-icon> {{ trip.destination.vicinity }} -
+              <span class="trip-time">{{ trip.droppedOffAt | date: 'shortTime'}}</span>
+            </p>
+
+          </td>
+          <td>
+            <p>{{trip.status}}</p>
+          </td>
+          <td>
+            <p>{{trip.currency}} {{trip.fee}} - {{ trip.paymentMethod }}</p>
+          </td>
+          <td>
+            <p>{{trip.currency}} {{trip.commission}}</p>
+          </td>
+          <td>
+            <ion-button size="small" fill="clear" color="primary" routerLink="/driverinfo/{{trip.driverId}}">
+              <ion-icon name="car"></ion-icon>
+            </ion-button>
+            <ion-button size="small" fill="clear" color="primary" routerLink="/passengerinfo/{{trip.passengerId}}">
+              <ion-icon name="person"></ion-icon>
+            </ion-button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </ion-card>
+</ion-content>
